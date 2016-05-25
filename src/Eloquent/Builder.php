@@ -24,7 +24,7 @@ class Builder extends IlluminateBuilder
             return $this->findMany($id, $columns);
         }
 
-        return Cache::tags($this->model->getConnection().':'.$this->model->getTable())->remember(
+        return Cache::tags($this->model->getConnectionName().':'.$this->model->getTable())->remember(
             $id,
             $this->model->cacheExpiry,
             function () use ($id, $columns) {
@@ -51,7 +51,7 @@ class Builder extends IlluminateBuilder
         }
 
         return $this->model->newCollection(
-            Cache::tags($this->model->getConnection().':'.$this->model->getTable())->rememberMany(
+            Cache::tags($this->model->getConnectionName().':'.$this->model->getTable())->rememberMany(
                 $ids,
                 $this->model->cacheExpiry,
                 function ($ids) use ($columns) {
